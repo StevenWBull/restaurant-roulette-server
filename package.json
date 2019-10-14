@@ -1,6 +1,6 @@
 {
-  "name": "express-boilerplate",
-  "version": "1.0.0",
+  "name": "restaurant-roulette",
+  "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   },
   "keywords": [],
   "engines": {},
-  "author": "",
+  "author": "Steven W. Bull (stevenwbulljr@gmail.com)",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",

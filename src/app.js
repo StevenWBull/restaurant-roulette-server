@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const { NODE_ENV } = require('./config');
 const errorHandler = require('./errorHandler');
 const usersRouter = require('./users/users-router');
+const restaurantsRouter = require('./restaurants/restaurants-router');
 
 const app = express();
 const jsonBodyParser = express.json();
@@ -20,6 +21,7 @@ app.use(cors());
 app.use(jsonBodyParser);
 
 app.use('/api/users', usersRouter);
+app.use('/api/restaurants', restaurantsRouter);
 
 app.get('/', ( req, res ) => {
   res.send('Hello world!');

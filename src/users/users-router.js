@@ -11,9 +11,9 @@ usersRouter
 
     for (const [key, value] of Object.entries(user)) {
       // eslint-disable-next-line eqeqeq
-      if (value == null) { 
+      if (value == null || value == '') { 
         return res.status(400).json({
-          error: `Missing ${key} in request body`
+          error: `Missing '${key}' in request body`
         });
       }
     }

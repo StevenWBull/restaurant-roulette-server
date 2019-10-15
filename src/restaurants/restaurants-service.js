@@ -16,7 +16,7 @@ const RestaurantsService = {
       .insert(newRestaurant)
       .into('rr_restaurants')
       .returning('*')
-      .then( ([restaurant]) => restaurant);
+      .then( (restaurant) => restaurant);
   },
   deleteRestaurant(db, id) {
     return db('rr_restaurants')
@@ -24,15 +24,18 @@ const RestaurantsService = {
       .delete();
   },
   sanitizeEntry(entry) {
-    console.log(entry);
-    return {
-      id: entry.id,
-      restaurant_name: xss(entry.restaurant_name),
-      street_address: xss(entry.street_address),
-      state_address: xss(entry.state_address),
-      cuisine_type: entry.cuisine_type,
-      user_id: entry.user_id
-    };
+    const sanitizedEntries = entry.map( sanitize => {
+      return {
+        id: sanitize.id,
+        restaurant_name: xss(sanitize.restaurant_name),
+        street_address: xss(sanitize.street_address),
+        state_address: xss(sanitize.state_address),
+        zipcode: Number(xss(sanitize.zipcode)),
+        cuisine_type: sanitize.cuisine_type,
+        user_id: sanitize.user_id
+      };
+    });
+    return sanitizedEntries;
   }
 };
 

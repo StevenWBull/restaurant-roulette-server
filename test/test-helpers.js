@@ -78,9 +78,8 @@ const helpers = {
   cleanTables(db) {
     return db.raw(
       `TRUNCATE
-        thingful_things,
-        thingful_users,
-        thingful_reviews
+        rr_restaurants,
+        rr_users
         RESTART IDENTITY CASCADE`
     );
   },
@@ -90,7 +89,7 @@ const helpers = {
       password: bcrypt.hashSync(user.password, 1)
     }));
   
-    return db.into('thingful_users').insert(preppedUsers)
+    return db.into('rr_users').insert(preppedUsers)
       .then( () => {
         db.raw(
           // eslint-disable-next-line quotes

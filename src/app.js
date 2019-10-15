@@ -7,6 +7,7 @@ const { NODE_ENV } = require('./config');
 const errorHandler = require('./errorHandler');
 const usersRouter = require('./users/users-router');
 const restaurantsRouter = require('./restaurants/restaurants-router');
+const authRouter = require('./auth/auth-router');
 
 const app = express();
 const jsonBodyParser = express.json();
@@ -20,6 +21,7 @@ app.use(helmet());
 app.use(cors());
 app.use(jsonBodyParser);
 
+app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/restaurants', restaurantsRouter);
 

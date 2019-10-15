@@ -7,8 +7,9 @@ const RestaurantsService = {
       .where({ user_id: userId });
   },
   getById(db, id) {
-    return this.getAllRestaurantsForUser(db, id)
-      .where({ id })
+    return db('rr_restaurants')
+      .select('*')
+      .where({ id: id })
       .first();
   },
   insertRestaurant(db, newRestaurant) {

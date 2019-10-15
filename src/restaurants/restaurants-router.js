@@ -47,4 +47,28 @@ restaurantRouter
       .catch(next);
   });
 
+restaurantRouter
+  .route('/:id')
+  .all((req, res, next) => {
+    RestaurantsService.getById(req.app.get('db'), req.params.id)
+      .then( restaurant => {
+        if (!restaurant) {
+          return res.status(400).json({
+            error: 'Restaurant not found'
+          });
+        }
+        res.restaurant = restaurant;
+        next();
+      })
+      .catch(next);
+  })
+  .get((req, res) => {
+    res.json(RestaurantsService.sanitizeEntry(res.restaurant));
+  })
+  .delete((req, res, next) => {
+    RestaurantsService.deleteRestaurant(req.app.get('db'), req.params.id)
+      .then( () => res.status(204).end() )
+      .catch(next);
+  });
+
 module.exports = restaurantRouter;

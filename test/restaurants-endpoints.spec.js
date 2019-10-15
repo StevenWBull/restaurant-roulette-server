@@ -3,7 +3,7 @@ const app = require('../src/app');
 const jwt = require('jsonwebtoken');
 const helpers = require('./test-helpers');
 
-describe('Auth Endpoints', () => {
+describe.only('Restaurants Endpoints', () => {
   let db;
 
   const { testUsers } = helpers.makeRestaurantsFixtures();
@@ -22,5 +22,20 @@ describe('Auth Endpoints', () => {
   before('cleanup', () => helpers.cleanTables(db));
 
   afterEach('cleanup', () => helpers.cleanTables(db));
-  
+
+  describe('protected endpoints', () => {
+    
+  });
+
+  describe('GET /api/restaurants', () => {
+
+  });
+
+  describe('GET /api/restaurants/id', () => {
+
+  });
+
+  describe('POST /api/restaurants', () => {
+
+  });
 });

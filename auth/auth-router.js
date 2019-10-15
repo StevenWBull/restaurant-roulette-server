@@ -33,7 +33,8 @@ authRouter
               authToken: AuthService.createJwt(sub, payload)
             });
           });
-      });
+      })
+      .catch(next);
   });
 
 module.exports = authRouter;

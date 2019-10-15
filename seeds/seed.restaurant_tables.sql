@@ -14,18 +14,18 @@ VALUES
   ('lexlor', 'Alex Taylor', '$2a$12$p7Qytl3R/y.J.u1ryLcTeeMhud5pSaXN6ahHeVYzsX0IvqZZ8vlMW'),
   ('wippy', 'Ping Won In', '$2a$12$khv/BIBSDiSbsQObTskW9exTqi35ECaaYgPJdNS1ptergWBogsCom');
 
-INSERT INTO rr_restaurants (restaurant_name, street_address, state_address, cuisine_type, user_id)
+INSERT INTO rr_restaurants (restaurant_name, street_address, state_address, zipcode, cuisine_type, user_id)
 VALUES
-  ('Gringos', '13456 Rosehill Rd', 'Cypress, TX', 'Mexican', 1),
-  ('Pei Wei', '13456 Mueschke Rd', 'Cypress, TX', 'Chinese', 1),
-  ('Whataburger', '16576 Kuykendall Rd', 'Cypress, TX', 'American', 1),
-  ('McDonalds', '56867 Fry Rd', 'Cypress, TX', 'American', 2),
-  ('Burger King', '86763 Telge Rd', 'Cypress, TX', 'American', 2),
-  ('Salata', '45795 Winston Rd', 'Cypress, TX', 'Mexican', 3),
-  ('Mos', '45397 Beltway Rd', 'Cypress, TX', 'Irish', 4),
-  ('Lupe Tortilla', '26721 Texas St', 'Cypress, TX', 'Mexican', 4),
-  ('Titos', '68566 San Antonio Rd', 'Cypress, TX', 'Mexican', 5),
-  ('Shogun', '18563 Houston Rd', 'Cypress, TX', 'Japanese', 6),
-  ('Olive Garden', '82894 blblahblah Rd', 'Cypress, TX', 'Italian', 6);
+  ('Gringos', '13456 Rosehill Rd', 'Cypress, TX', 77429, 'Mexican', 1),
+  ('Pei Wei', '13456 Mueschke Rd', 'Cypress, TX', 77429, 'Chinese', 1),
+  ('Whataburger', '16576 Kuykendall Rd', 'Cypress, TX', 77429, 'American', 1),
+  ('McDonalds', '56867 Fry Rd', 'Cypress, TX', 77429, 'American', 2),
+  ('Burger King', '86763 Telge Rd', 'Cypress, TX', 77429, 'American', 2),
+  ('Salata', '45795 Winston Rd', 'Cypress, TX', 77429, 'Mexican', 3),
+  ('Mos', '45397 Beltway Rd', 'Cypress, TX', 77429, 'Irish', 4),
+  ('Lupe Tortilla', '26721 Texas St', 'Cypress, TX', 77429, 'Mexican', 4),
+  ('Titos', '68566 San Antonio Rd', 'Cypress, TX', 77429, 'Mexican', 5),
+  ('Shogun', '18563 Houston Rd', 'Cypress, TX', 77429, 'Japanese', 6),
+  ('Olive Garden', '82894 blblahblah Rd', 'Cypress, TX', 77429, 'Italian', 6);
 
   COMMIT;

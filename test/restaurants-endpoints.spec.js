@@ -107,6 +107,38 @@ describe('Restaurants Endpoints', () => {
     beforeEach('insert users and restaurants', () => 
       helpers.seedRrTables(db, testUsers, testRestaurants)
     );
+
+    const requiredRestaurantFields = [
+      'restaurant_name',
+      'street_address',
+      'state_address',
+      'zipcode',
+      'cuisine_type'
+    ];
+
+    requiredRestaurantFields.forEach( field => {
+      const newRestaurant = {
+        restaurant_name: 'test restaurant',
+        street_address: '1234 test',
+        state_address: 'Test, TX',
+        zipcode: 12345,
+        cuisine_type: 'Testican',
+        user_id: 1
+      };
+
+      it(`responds with 400 and '${field}' is missing`, () => {
+        delete newRestaurant[field];
+
+        return supertest(app)
+          .post('/api/restaurants')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+          .send(newRestaurant)
+          .expect(400, {
+            error: `Missing '${field}' in request body`
+          });
+      });
+    });
+    
     
     it('responds with 201 and posted restaurant', () => {
       const postingUser = testUsers[0];
@@ -118,12 +150,11 @@ describe('Restaurants Endpoints', () => {
         zipcode: 12345,
         cuisine_type: 'Testican',
         user_id: postingUser.id
-      }
+      };
 
       const expectedRestaurant = [{
         id: (testRestaurants.length + 1),
-        ...newRestaurant,
-        user_id: postingUser.id
+        ...newRestaurant
       }];
 
       return supertest(app)

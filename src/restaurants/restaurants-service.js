@@ -18,7 +18,13 @@ const RestaurantsService = {
       .returning('*')
       .then( ([restaurant]) => restaurant);
   },
+  deleteRestaurant(db, id) {
+    return db('rr_restaurants')
+      .where({ id })
+      .delete();
+  },
   sanitizeEntry(entry) {
+    console.log(entry);
     return {
       id: entry.id,
       restaurant_name: xss(entry.restaurant_name),

@@ -5,17 +5,19 @@ const { requireAuthentication } = require('../../middleware/jwt-auth');
 const restaurantRouter = express.Router();
 
 restaurantRouter
-  .route('/:user_id')
+  .route('/')
   .all(requireAuthentication)
   .get((req, res, next) => {
     const user = req.user;
+
+    console.log(user);
 
     if (!user) {
       return res.status(400).json({ error: 'User does not exist' });
     }
 
     RestaurantsService.getAllRestaurantsForUser(req.app.get('db'), user.id)
-      .then( restaurants => res.json(RestaurantsService.sanitizeEntry(restaurants)))
+      .then( restaurants => res.json(restaurants))
       .catch(next);
   });
 

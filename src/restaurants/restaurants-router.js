@@ -46,6 +46,7 @@ restaurantRouter
 
 restaurantRouter
   .route('/:id')
+  .all(requireAuthentication)
   .all((req, res, next) => {
     RestaurantsService.getById(req.app.get('db'), req.params.id)
       .then( restaurant => {

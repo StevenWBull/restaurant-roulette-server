@@ -3,11 +3,10 @@ const app = require('../src/app');
 const jwt = require('jsonwebtoken');
 const helpers = require('./test-helpers');
 
-describe.only('Restaurants Endpoints', () => {
+describe('Restaurants Endpoints', () => {
   let db;
 
-  const { testUsers } = helpers.makeRestaurantsFixtures();
-  const testUser = testUsers[0];
+  const { testUsers, testRestaurants } = helpers.makeRestaurantsFixtures();
 
   before('make knex instance', () => {
     db = knex({
@@ -24,18 +23,114 @@ describe.only('Restaurants Endpoints', () => {
   afterEach('cleanup', () => helpers.cleanTables(db));
 
   describe('protected endpoints', () => {
-    
+    beforeEach('insert users and restaurants', () => 
+      helpers.seedRrTables(db, testUsers, testRestaurants)
+    );
+
+    context('GET /api/restaurants', () => {
+      it('responds with 401 and \'Missing bearer token\'', () => {
+        return supertest(app)
+          .get('/api/restaurants')
+          .expect(401, {
+            error: 'Missing bearer token'
+          });
+      });
+
+      it('responds with 401 and \'Unauthorized request\' with invalid jwt', () => {
+        const validUser = testUsers[0];
+        const invalidSecret = 'invalid-secret';
+
+        return supertest(app)
+          .get('/api/restaurants')
+          .set('Authorization', helpers.makeAuthHeader(validUser, invalidSecret))
+          .expect(401, {
+            error: 'Unauthorized request'
+          });
+      });
+
+      it('responds with 401 and \'Unauthorized request\' with invalid credentials', () => {
+        const invalidUserCreds = { user_name: 'invalid-user', password: 'invalid-pass'};
+
+        return supertest(app)
+          .get('/api/restaurants')
+          .set('Authorization', helpers.makeAuthHeader(invalidUserCreds))
+          .expect(401, {
+            error: 'Unauthorized request'
+          });
+      });
+    });
   });
 
   describe('GET /api/restaurants', () => {
+    context('given no restaurants', () => {
+      beforeEach('insert users and restaurants', () => 
+        helpers.seedUsers(db, testUsers)
+      );
+    
+      it('responds with 200 and an empty array', () => {
+        return supertest(app)
+          .get('/api/restaurants')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+          .expect(200, []);
+      });
+    });
 
+    context('given restaurants in the database', () => {
+      beforeEach('insert users and restaurants', () => 
+        helpers.seedRrTables(db, testUsers, testRestaurants)
+      );
+
+      it('responds with 200 and all restaurants', () => {
+        const expectedRestaurants = helpers.makeExpectedRestaurants(testUsers[0], testRestaurants);
+        return supertest(app)
+          .get('/api/restaurants')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+          .expect(200, expectedRestaurants);
+      });
+    }); 
   });
 
-  describe('GET /api/restaurants/id', () => {
-
+  describe('DELETE /api/restaurants/id', () => {
+    beforeEach('insert users and restaurants', () => 
+      helpers.seedRrTables(db, testUsers, testRestaurants)
+    );
+      
+    it('responds with 204 and nothing', () => {
+      return supertest(app)
+        .delete('/api/restaurants/1')
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .expect(204, {});
+    });
   });
 
   describe('POST /api/restaurants', () => {
+    beforeEach('insert users and restaurants', () => 
+      helpers.seedRrTables(db, testUsers, testRestaurants)
+    );
+    
+    it('responds with 201 and posted restaurant', () => {
+      const postingUser = testUsers[0];
+      
+      const newRestaurant = {
+        restaurant_name: 'test restaurant 5',
+        street_address: '5555 test',
+        state_address: 'Test, TX',
+        zipcode: 12345,
+        cuisine_type: 'Testican',
+        user_id: postingUser.id
+      }
 
+      const expectedRestaurant = [{
+        id: (testRestaurants.length + 1),
+        ...newRestaurant,
+        user_id: postingUser.id
+      }];
+
+      return supertest(app)
+        .post('/api/restaurants')
+        .set('Authorization', helpers.makeAuthHeader(postingUser))
+        .send(newRestaurant)
+        .expect(201, expectedRestaurant);
+    });
   });
 });

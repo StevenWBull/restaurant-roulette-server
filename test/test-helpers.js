@@ -31,7 +31,7 @@ const helpers = {
     ];
   },
   makeRestaurantsArray(users) {
-    [
+    return [
       {
         id: 1,
         restaurant_name: 'test restaurant 1',
@@ -117,6 +117,9 @@ const helpers = {
     });
 
     return `Bearer ${token}`;
+  },
+  makeExpectedRestaurants(user, restaurants) {
+    return restaurants.filter( restaurant => restaurant.user_id === user.id);
   }
 };
 

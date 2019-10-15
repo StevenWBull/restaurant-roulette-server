@@ -111,9 +111,9 @@ const helpers = {
     });
   },
   makeAuthHeader(user, secret = process.env.JWT_SECRET) {
-    const token = jwt.sign({ user_Ii: user.id }, secret, {
+    const token = jwt.sign({ user_id: user.id }, secret, {
       subject: user.user_name,
-      algorithms: 'HS256'
+      algorithm: 'HS256'
     });
 
     return `Bearer ${token}`;

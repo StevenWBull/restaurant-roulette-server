@@ -2,7 +2,7 @@ const knex = require('knex');
 const app = require('../src/app');
 const helpers = require('./test-helpers');
 
-describe.only('Users Endpoints', () => {
+describe('Users Endpoints', () => {
   let db;
 
   const { testUsers } = helpers.makeRestaurantsFixtures();
@@ -22,7 +22,7 @@ describe.only('Users Endpoints', () => {
 
   afterEach('cleanup', () => helpers.cleanTables(db));
 
-  describe.only('POST /api/users', () => {
+  describe('POST /api/users', () => {
     context('User Validation', () => {
       beforeEach('insert users', () => helpers.seedUsers(db, testUsers));
 

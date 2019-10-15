@@ -80,8 +80,9 @@ describe('Auth Endpoints', () => {
         process.env.JWT_SECRET,
         {
           subject: testUser.user_name,
-          algorithm: 'HS256',
-        });
+          algorithm: 'HS256'
+        }
+      );
       
       return supertest(app)
         .post('/api/auth/login')

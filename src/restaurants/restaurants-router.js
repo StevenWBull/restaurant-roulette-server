@@ -2,7 +2,7 @@
 const express = require('express');
 const path = require('path');
 const RestaurantsService = require('./restaurants-service');
-const { requireAuthentication } = require('../../middleware/jwt-auth');
+const { requireAuthentication } = require('../middleware/jwt-auth');
 
 const restaurantRouter = express.Router();
 
@@ -11,8 +11,6 @@ restaurantRouter
   .all(requireAuthentication)
   .get((req, res, next) => {
     const user = req.user;
-
-    console.log(user);
 
     if (!user) {
       return res.status(400).json({ error: 'User does not exist' });
@@ -27,7 +25,6 @@ restaurantRouter
     const newRestaurant = { restaurant_name, street_address, state_address, zipcode, cuisine_type };
 
     for (const [key, value] of Object.entries(newRestaurant)) {
-      console.log(value);
       if (value == null || value == '') {
         return res.status(400).json({ error: `Missing '${key}' in request body`});
       }

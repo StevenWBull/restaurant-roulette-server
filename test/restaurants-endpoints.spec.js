@@ -63,7 +63,7 @@ describe('Restaurants Endpoints', () => {
 
   describe('GET /api/restaurants', () => {
     context('given no restaurants', () => {
-      beforeEach('insert users and restaurants', () => 
+      beforeEach('insert users', () => 
         helpers.seedUsers(db, testUsers)
       );
     
@@ -88,6 +88,37 @@ describe('Restaurants Endpoints', () => {
           .expect(200, expectedRestaurants);
       });
     }); 
+  });
+
+  describe.only('GET /api/restaurants/random', () => {
+    context('given no restaurants', () => {
+      beforeEach('insert users', () => 
+        helpers.seedUsers(db, testUsers)
+      );
+    
+      it('responds with 200 and an empty array', () => {
+        return supertest(app)
+          .get('/api/random-restaurants')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+          .expect(200, []);
+      });
+    });
+
+    context('given restaurants in the database', () => {
+      beforeEach('insert users and restaurants', () => 
+        helpers.seedRrTables(db, testUsers, testRestaurants)
+      );
+
+      it('responds with 200 and one restaurant', () => {
+        return supertest(app)
+          .get('/api/random-restaurants')
+          .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+          .expect(200)
+          .then( res => {
+            expect(res.length).to.eql(1);
+          });
+      });
+    });
   });
 
   describe('DELETE /api/restaurants/id', () => {

@@ -7,6 +7,7 @@ const { NODE_ENV } = require('./config');
 const errorHandler = require('./errorHandler');
 const usersRouter = require('./users/users-router');
 const restaurantsRouter = require('./restaurants/restaurants-router');
+const randomRestaurantsRouter = require('./restaurants/random-restaurant');
 const authRouter = require('./auth/auth-router');
 
 const app = express();
@@ -24,6 +25,7 @@ app.use(jsonBodyParser);
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/restaurants', restaurantsRouter);
+app.use('/api/random-restaurants', randomRestaurantsRouter);
 
 app.get('/', ( req, res ) => {
   res.send('Hello world!');

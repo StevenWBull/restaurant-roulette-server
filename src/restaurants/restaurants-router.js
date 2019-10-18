@@ -69,18 +69,4 @@ restaurantRouter
       .catch(next);
   });
 
-restaurantRouter
-  .route('/random')
-  .all(requireAuthentication)
-  .get((req, res, next) => {
-    const user = req.user;
-    if (!user) {
-      return res.status(400).json({ error: 'User does not exist' });
-    }
-
-    RestaurantsService.getRandomRestaurant(req.app.get('db'), user.id)
-      .then ( randomRestaurant => RestaurantsService.sanitizeEntry(randomRestaurant))
-      .catch(next);
-  });
-
 module.exports = restaurantRouter;

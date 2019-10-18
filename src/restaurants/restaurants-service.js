@@ -42,9 +42,9 @@ const RestaurantsService = {
     return db('rr_restaurants')
       .select('*')
       .where({ user_id: userId })
-      .orderByRaw('RAND()')
+      .orderByRaw('RANDOM()')
       .limit(1);
-  } 
+  }
 };
 
 module.exports = RestaurantsService;

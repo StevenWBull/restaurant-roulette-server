@@ -15,7 +15,7 @@ randomRestaurantRouter
     }
 
     RestaurantsService.getRandomRestaurant(req.app.get('db'), user.id)
-      .then ( randomRestaurant => RestaurantsService.sanitizeEntry(randomRestaurant))
+      .then ( randomRestaurant => res.json(RestaurantsService.sanitizeEntry(randomRestaurant)))
       .catch(next);
   });
 

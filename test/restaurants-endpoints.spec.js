@@ -90,7 +90,7 @@ describe('Restaurants Endpoints', () => {
     }); 
   });
 
-  describe.only('GET /api/restaurants/random', () => {
+  describe('GET /api/restaurants/random-restaurants', () => {
     context('given no restaurants', () => {
       beforeEach('insert users', () => 
         helpers.seedUsers(db, testUsers)
@@ -113,10 +113,7 @@ describe('Restaurants Endpoints', () => {
         return supertest(app)
           .get('/api/random-restaurants')
           .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
-          .expect(200)
-          .then( res => {
-            expect(res.length).to.eql(1);
-          });
+          .expect(200, [testRestaurants[0]]);
       });
     });
   });

@@ -38,9 +38,10 @@ const RestaurantsService = {
     });
     return sanitizedEntries;
   },
-  getRandomRestaurant(db) {
+  getRandomRestaurant(db, userId) {
     return db('rr_restaurants')
       .select('*')
+      .where({ user_id: userId })
       .orderByRaw('RAND()')
       .limit(1);
   } 

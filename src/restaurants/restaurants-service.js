@@ -37,7 +37,13 @@ const RestaurantsService = {
       };
     });
     return sanitizedEntries;
-  }
+  },
+  getRandomRestaurant(db) {
+    return db('rr_restaurants')
+      .select('*')
+      .orderByRaw('RAND()')
+      .limit(1);
+  } 
 };
 
 module.exports = RestaurantsService;

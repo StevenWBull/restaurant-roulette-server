@@ -69,4 +69,9 @@ restaurantRouter
       .catch(next);
   });
 
+restaurantRouter
+  .route('/random')
+  .all(requireAuthentication)
+  .
+
 module.exports = restaurantRouter;

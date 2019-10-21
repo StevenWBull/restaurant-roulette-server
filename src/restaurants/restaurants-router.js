@@ -67,6 +67,20 @@ restaurantRouter
     RestaurantsService.deleteRestaurant(req.app.get('db'), req.params.id)
       .then( () => res.status(204).end() )
       .catch(next);
+  })
+  .patch((req, res, next) => {
+    const { restaurant_name, street_address, state_address, zipcode } = req.body;
+    const restaurantToUpdate = { restaurant_name, street_address, state_address, zipcode };
+
+    const numOfValues = Object.values(restaurantToUpdate);
+    if (numOfValues === 0) {
+      return res.status(400).json({
+        error: 'Request must contain either \'restaurant_name\', \'street_address\', \'state_address\', or \'zipcode\''
+      })
+    }
+    RestaurantsService.updateRestaurant(req.app.get('db'), req.params.id, restaurantToUpdate)
+      .then( () => res.status(204).end())
+      .catch(next);
   });
 
 module.exports = restaurantRouter;

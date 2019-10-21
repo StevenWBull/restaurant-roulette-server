@@ -69,13 +69,13 @@ restaurantRouter
       .catch(next);
   })
   .patch((req, res, next) => {
-    const { restaurant_name, street_address, state_address, zipcode } = req.body;
-    const restaurantToUpdate = { restaurant_name, street_address, state_address, zipcode };
+    const { restaurant_name, street_address, state_address, zipcode, cuisine_type } = req.body;
+    const restaurantToUpdate = { restaurant_name, street_address, state_address, zipcode, cuisine_type };
 
     const numOfValues = Object.values(restaurantToUpdate);
     if (numOfValues === 0) {
       return res.status(400).json({
-        error: 'Request must contain either \'restaurant_name\', \'street_address\', \'state_address\', or \'zipcode\''
+        error: 'Request must contain either \'restaurant_name\', \'street_address\', \'state_address\', \'zipcode\', or \'cuisine_type\'.'
       })
     }
     RestaurantsService.updateRestaurant(req.app.get('db'), req.params.id, restaurantToUpdate)

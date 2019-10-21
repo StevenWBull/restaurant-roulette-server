@@ -44,6 +44,11 @@ const RestaurantsService = {
       .where({ user_id: userId })
       .orderByRaw('RANDOM()')
       .limit(1);
+  },
+  updateRestaurant(db, id, updatedRestaurant) {
+    return db('rr_restaurants')
+      .where({ id })
+      .update(updatedRestaurant);
   }
 };
 

@@ -1,6 +1,5 @@
 const knex = require('knex');
 const app = require('../src/app');
-const jwt = require('jsonwebtoken');
 const helpers = require('./test-helpers');
 
 describe('Restaurants Endpoints', () => {

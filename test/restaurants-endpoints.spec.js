@@ -192,4 +192,59 @@ describe('Restaurants Endpoints', () => {
         .expect(201, expectedRestaurant);
     });
   });
+
+  describe('PATCH /api/restaurants', () => {
+    beforeEach('insert users and restaurants', () => 
+      helpers.seedRrTables(db, testUsers, testRestaurants)
+    );
+    it('responds with 400 when no required fields provided', () => {
+      const emptyUpdate = {};
+
+      return supertest(app)
+        .patch('/api/restaurants/1')
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .send(emptyUpdate)
+        .expect(400, { 
+          error: 'Request must contain either \'restaurant_name\', \'street_address\', \'state_address\', \'zipcode\', or \'cuisine_type\'.' 
+        });
+    });
+
+    it('responds with 400 when invalid fields provided', () => {
+      const invalidFieldUpdate = { foo: 'bar' };
+
+      return supertest(app)
+        .patch('/api/restaurants/1')
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .send(invalidFieldUpdate)
+        .expect(400, { 
+          error: 'Request must contain either \'restaurant_name\', \'street_address\', \'state_address\', \'zipcode\', or \'cuisine_type\'.' 
+        });
+    });
+
+    it('responds with 204 and updates restaurant', () => {
+      const idToUpdate = 1;
+      const updateRestaurant = {
+        restaurant_name: 'new restaurant'
+      };
+
+      const expectedRestaurant = [
+        {
+          ...testRestaurants[idToUpdate - 1],
+          ...updateRestaurant
+        }
+      ];
+
+      return supertest(app)
+        .patch(`/api/restaurants/${idToUpdate}`)
+        .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+        .send(updateRestaurant)
+        .expect(204)
+        .then( () => {
+          return supertest(app)
+            .get('/api/restaurants')
+            .set('Authorization', helpers.makeAuthHeader(testUsers[0]))
+            .expect(expectedRestaurant);
+        });
+    });
+  });
 });

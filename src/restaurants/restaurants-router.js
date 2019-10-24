@@ -76,7 +76,7 @@ restaurantRouter
     if (numOfValues === 0) {
       return res.status(400).json({
         error: 'Request must contain either \'restaurant_name\', \'street_address\', \'state_address\', \'zipcode\', or \'cuisine_type\'.'
-      })
+      });
     }
     RestaurantsService.updateRestaurant(req.app.get('db'), req.params.id, restaurantToUpdate)
       .then( () => res.status(204).end())

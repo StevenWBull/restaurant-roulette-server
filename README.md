@@ -4,6 +4,8 @@
 
 ### Restaurant Roulette Client
 
+### API Endpoints
+
 ## Summary
 
 ![Restaurant Roulette Homepage](https://i.imgur.com/QwfS6Wa.jpg)

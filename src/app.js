@@ -28,7 +28,7 @@ app.use('/api/restaurants', restaurantsRouter);
 app.use('/api/random-restaurants', randomRestaurantsRouter);
 
 app.get('/', ( req, res ) => {
-  res.send('Hello world!');
+  res.send('Welcome to the Restaurant Roulette Server');
 });
 
 app.use(errorHandler);

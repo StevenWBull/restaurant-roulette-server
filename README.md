@@ -1,26 +1,15 @@
-# Express Boilerplate!
+## Restaurant Roulette
 
-This is a boilerplate project used for starting new projects!
+### Live Link
 
-## Set up
+### Restaurant Roulette Client
 
-Complete the following steps to start a new project (NEW-PROJECT-NAME):
+## Summary
 
-1. Clone this repository to your local machine `git clone BOILERPLATE-URL NEW-PROJECTS-NAME`
-2. `cd` into the cloned repository
-3. Make a fresh start of the git history for this project with `rm -rf .git && git init`
-4. Install the node dependencies `npm install`
-5. Move the example Environment file to `.env` that will be ignored by git and read by the express server `mv example.env .env`
-6. Edit the contents of the `package.json` to use NEW-PROJECT-NAME instead of `"name": "express-boilerplate",`
+![Restaurant Roulette Homepage](https://i.imgur.com/QwfS6Wa.jpg)
 
-## Scripts
+Restaurant Roulette is a application where a user can save their favorite restaurants in one easy to access place. Users are only able to see their own restaurants. The main feature of the application is the ability to to randomly pull out one restaurant from the entire saved list. This functionality allows the user to simplify their dining experience by not having to have the dreaded 'Where do you want to eat?' conversation with family, friends or significant others. For added effect, if the randomly generated restaurant doesn't fit the current craving of the user, a single button on the same page can be clicked to generate a new random restaurant.
 
-Start the application `npm start`
+### Technologies Used
 
-Start nodemon for the application `npm run dev`
-
-Run the tests `npm test`
-
-## Deploying
-
-When your new project is ready for deployment, add a new Heroku application with `heroku create`. This will make a new git remote called "heroku" and you can then `npm run deploy` which will push to this remote's master branch.
+React, React Hooks, CSS, HTML, Node, Express, and PostgreSQL.

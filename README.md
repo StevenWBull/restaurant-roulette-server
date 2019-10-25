@@ -2,9 +2,32 @@
 
 ### Live Link
 
+* https://restaurant-roulette.now.sh/
+
 ### Restaurant Roulette Client
 
+* https://github.com/StevenWBull/restaurant-roulette-client
+
 ### API Endpoints
+
+* API URL: 'https://restaurant-roulette-server.herokuapp.com/api'
+
+#### Allows GET and POST OF restaurants associated with logged in user 
+* '/restaurants'
+
+#### Allows for PATCH and DELETE of specific restaurants in user's pool of restaurants
+* '/restaurants/:id'
+
+#### Generates a random restaurant from a user's pool of saved restaurants
+* '/random-restaurant'
+
+#### Allows POST for new users
+
+* '/users'
+
+#### Handles verification of user for login purposes
+
+* '/auth/login'
 
 ## Summary
 
